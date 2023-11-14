@@ -5,6 +5,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import TelaCadastro from './src/pages/Cadastro/index';
 import TelaLogin from './src/pages/Login/index';
 import TelaCalculadora from './src/pages/Calculadora/index';
+import TelaPrincipal from './src/pages/Principal';
 
 const Tab = createBottomTabNavigator();
 
@@ -12,6 +13,7 @@ export default function App() {
   return (
     <NavigationContainer>
         <Tab.Navigator screenOptions={{tabBarInactiveTintColor: "#2E3A69"}}>
+            <Tab.Screen name="TelaPrincipal" component={TelaPrincipal} options={{ headerShown: false}}/>
             <Tab.Screen name="TelaCadastro" component={TelaCadastro} options={{ headerShown: false}}/>
             <Tab.Screen name="TelaLogin" component={TelaLogin} options={{ headerShown: false}}/>
             <Tab.Screen name="TelaCalculadora" component={TelaCalculadora} options={{ headerShown: false}}/>
