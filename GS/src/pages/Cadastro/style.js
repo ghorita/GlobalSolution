@@ -1,17 +1,27 @@
 import { StyleSheet } from "react-native";
  
 const styles = StyleSheet.create({
+    background: {
+        height: "100%",
+        flex: 1
+    },
+
     title:{
-        fontSize: 30,
+        fontSize: 50,
         fontWeight: "bold",
-        marginTop: 40,
-        textAlign: "center",
+        marginTop: 60,
+        textAlign: "left",
         padding: 40,
-        color: 'black'
+        color: "#2E3A69",
+        width: 220
     },
 
     container: {
         flex: 1
+    },
+
+    containerDados:{
+        marginTop: 70
     },
 
     input: {
@@ -22,13 +32,14 @@ const styles = StyleSheet.create({
         marginHorizontal: 20,
         marginTop: 30,
         fontSize: 20,
-        color: "red"
+        color: "red",
+        backgroundColor: "white"
     },
 
     btnCadastrar: {
         textAlign: "center",
-        color: "blue",
-        fontSize: 20,
+        color: "#2E3A69",
+        fontSize: 26,
         fontWeight: "bold",
         padding: 30
     },
@@ -36,7 +47,11 @@ const styles = StyleSheet.create({
     btnLogin: {
         textAlign: "right",
         marginRight: 50,
-        marginTop: 20
+        marginTop: 20,
+        color: "#2E3A69",
+        fontSize: 18, 
+        fontWeight: "500",
+        marginTop: 90,
     }
 
 })
