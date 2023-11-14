@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, ImageBackground, ScrollView, Modal, Image } from 'react-native';
+import  FontAwesome5  from 'react-native-vector-icons/FontAwesome5';
 import axios from 'axios';
 import { styles } from './style';
 import backgroundImg from '../../assets/background.png'
@@ -12,6 +13,7 @@ const api = axios.create({
 export default function TelaCalculadora() {
 
     const[visivel, setvisivel] = useState(false);
+    const[historico, setHistorico] = useState(false);
     const[sexo, setSexo] = useState("");
     const[idade, setIdade] = useState("");
     const[altura, setAltura] = useState("");
@@ -26,6 +28,10 @@ export default function TelaCalculadora() {
     //         setResultado(imc.toFixed(2));
     //     }
     // }
+
+    const MostrarHistorico = () => {
+        setHistorico(true);
+    }
 
     const Calcular = () =>{
         const dados = { sexo, idade, altura, peso };
@@ -44,6 +50,17 @@ export default function TelaCalculadora() {
                 }
                 alert("Erro ao calculaar, tente novamente!");
                 setvisivel(true);
+            })
+    }
+
+    const Deletar = (historicoId) => {
+        api
+            .delete(`/${historicoId}`)
+            .then( (response) => {
+                alert("Deletado com sucesso!");
+            })
+            .catch( (err) => {
+                alert("Erro ao tentar deletar, tente novamente!");
             })
     }
 
@@ -78,6 +95,10 @@ export default function TelaCalculadora() {
                     <TouchableOpacity onPress={Calcular}>
                         <Text style={styles.btnCalcular}>Calcular</Text>
                     </TouchableOpacity>
+
+                    <TouchableOpacity onPress={MostrarHistorico}>
+                        <Text style={styles.btnHistorico}>Exibir Histórico</Text>
+                    </TouchableOpacity>
                 </View>
 
                 <Modal
@@ -100,6 +121,35 @@ export default function TelaCalculadora() {
                             </TouchableOpacity>
                         </View>
                     </ScrollView>
+                </Modal>
+
+                <Modal
+                    animationType='slide'
+                    transparent={true}
+                    visible={historico}
+                    onRequestClose={() => {
+                        setHistorico(!historico);
+                    }}>
+                        <ScrollView style={styles.modalScroll}>
+                            <View style={styles.modalContainer}>
+                                <Text style={styles.modalTitle}>Histórico</Text>
+
+                                <View style={styles.containerHistorico}>
+                                    <Text style={styles.imcTitle}>22.8{resultado}kg/m2</Text>
+                                    <Text style={styles.imcDados}>Idade: {idade}</Text>
+                                    <Text style={styles.imcDados}>Altura: {altura}</Text>
+                                    <Text style={styles.imcDados}>Peso: {peso}</Text>
+
+                                    <TouchableOpacity onPress={Deletar}>
+                                        <FontAwesome5 name="trash" style={styles.lixo}/>
+                                    </TouchableOpacity>
+                                </View>
+
+                                <TouchableOpacity onPress={() => setHistorico(!historico)}>
+                                    <Text style={styles.btnVoltar}>voltar</Text>
+                                </TouchableOpacity>
+                            </View>
+                        </ScrollView>
                 </Modal>
             </ScrollView>
         </ImageBackground>

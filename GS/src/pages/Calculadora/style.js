@@ -88,9 +88,49 @@ const styles = StyleSheet.create({
         padding: 30
     },
 
+    btnHistorico: {
+        textAlign: "center",
+        color: "#2E3A69",
+        fontSize: 20,
+        fontWeight: "bold",
+        paddingTop: 40
+    },
+
     modalScroll: {
         flex: 1,
         backgroundColor: "white"
+    },
+
+    containerHistorico: {
+        borderWidth: 2,
+        borderColor: "#2E3A69",
+        borderRadius: 8,
+        width: "60%",
+        marginTop: 30
+    },
+
+    imcTitle: {
+        color: "red",
+        fontSize: 20,
+        fontWeight: "bold",
+        textAlign: "center",
+        marginTop: 10,
+        paddingBottom: 10
+    },
+
+    imcDados: {
+        marginLeft: 20,
+        fontWeight: "bold",
+        fontSize: 16,
+        color: "#2E3A69",
+        marginBottom: 5,
+    },
+
+    lixo: {
+        fontSize: 30,
+        color: "#2E3A69",
+        textAlign: "center",
+        marginVertical: 15
     }
 })
 
