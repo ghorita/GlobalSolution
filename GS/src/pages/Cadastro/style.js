@@ -26,13 +26,12 @@ const styles = StyleSheet.create({
 
     input: {
         borderRadius: 6,
-        borderColor: "black",
+        borderColor: "2E3A69",
         borderWidth: 3,
         padding: 15,
         marginHorizontal: 20,
         marginTop: 30,
         fontSize: 20,
-        color: "red",
         backgroundColor: "white"
     },
 

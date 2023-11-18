@@ -3,12 +3,18 @@ import { StyleSheet } from 'react-native';
 const styles = StyleSheet.create({
     background: {
         height: "100%",
-        flex: 1
+        flex: 1,
+        color: "#2E3A69"
     },
 
     container: {
         marginTop: 80
     },
+
+    icon: {
+        fontSize: 40, 
+        marginLeft: 20
+    },  
 
     title: {
         fontSize: 40,

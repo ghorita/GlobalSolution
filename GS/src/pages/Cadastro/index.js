@@ -24,7 +24,7 @@ export default function TelaCadastro({ navigation }) {
         })
         .then( (response)=> {
             alert("Usuário cadastrado com sucesso!");
-            navigation.navigate('login');
+            navigation.navigate('TelaLogin');
         })
         .catch( (err)=>{
             alert("Erro" + err);

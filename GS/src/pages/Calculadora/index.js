@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, ImageBackground, ScrollView, Modal, Image } from 'react-native';
 import  FontAwesome5  from 'react-native-vector-icons/FontAwesome5';
+import  Ionicons  from 'react-native-vector-icons/Ionicons';
 import axios from 'axios';
 import { styles } from './style';
 import backgroundImg from '../../assets/background.png'
@@ -10,7 +11,7 @@ const api = axios.create({
     baseURL: "https://gs02-43d78-default-rtdb.firebaseio.com"
 })
 
-export default function TelaCalculadora() {
+export default function TelaCalculadora({ navigation }) {
 
     const[visivel, setvisivel] = useState(false);
     const[historico, setHistorico] = useState(false);
@@ -21,14 +22,9 @@ export default function TelaCalculadora() {
     const[peso, setPeso] = useState("");
     const[resultado, setResultado] = useState(null);
 
-    // const calcularImc = () => {
-    //     if (altura && peso) {
-    //         const weight = parseFloat(peso);
-    //         const height = parseFloat(altura) / 100;
-    //         const imc = weight / (height * height);
-    //         setResultado(imc.toFixed(2));
-    //     }
-    // }
+    const navegarTelaPrinciapl = () => {
+        navigation.navigate("TelaPrincipal");
+    }
 
     const MostrarHistorico = () => {
         api
@@ -83,6 +79,10 @@ export default function TelaCalculadora() {
         <ImageBackground source={backgroundImg} style={styles.background}>
             <ScrollView>
                 <View style={styles.container}>
+                    <TouchableOpacity onPress={navegarTelaPrinciapl}>
+                        <Ionicons name="arrow-back-outline" style={styles.icon}/>
+                    </TouchableOpacity>
+
                     <Text style={styles.title}>Calculadora de IMC</Text>
 
                     <Text style={styles.dados}>Sexo</Text>

@@ -10,7 +10,6 @@ export default function TelaPrincipal({ navigation }) {
         navigation.navigate("TelaCalculadora");
     }
     return(
-        <ImageBackground source={background} style={styles.backgroundImg}>
             <ScrollView>
                 <View style={styles.container}>
                     <Text style={styles.title}>Calcular IMC e Calculadora de Peso Ideal</Text>
@@ -67,6 +66,5 @@ export default function TelaPrincipal({ navigation }) {
                     </Text>
                 </View>
             </ScrollView>
-        </ImageBackground>
     )
 }
