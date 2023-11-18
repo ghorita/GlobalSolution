@@ -13,9 +13,9 @@ export default function App() {
   return (
     <NavigationContainer>
         <Tab.Navigator screenOptions={{tabBarInactiveTintColor: "#2E3A69"}}>
-            <Tab.Screen name="TelaPrincipal" component={TelaPrincipal} options={{ headerShown: false}}/>
             <Tab.Screen name="TelaCadastro" component={TelaCadastro} options={{ headerShown: false}}/>
             <Tab.Screen name="TelaLogin" component={TelaLogin} options={{ headerShown: false}}/>
+            <Tab.Screen name="TelaPrincipal" component={TelaPrincipal} options={{ headerShown: false}}/>
             <Tab.Screen name="TelaCalculadora" component={TelaCalculadora} options={{ headerShown: false}}/>
         </Tab.Navigator>
     </NavigationContainer>
