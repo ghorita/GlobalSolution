@@ -7,14 +7,15 @@ import backgroundImg from '../../assets/background.png'
 import tabela from '../../assets/tabelaImc.png';
 
 const api = axios.create({
-    baseURL: ""
+    baseURL: "https://gs02-43d78-default-rtdb.firebaseio.com"
 })
 
 export default function TelaCalculadora() {
 
     const[visivel, setvisivel] = useState(false);
     const[historico, setHistorico] = useState(false);
-    const[sexo, setSexo] = useState("");
+    const [historicoList, setHistoricoList] = useState([]);
+    const[sexo, setSexo] = useState("feminino");
     const[idade, setIdade] = useState("");
     const[altura, setAltura] = useState("");
     const[peso, setPeso] = useState("");
@@ -30,39 +31,53 @@ export default function TelaCalculadora() {
     // }
 
     const MostrarHistorico = () => {
-        setHistorico(true);
-    }
+        api
+          .get("/lista.json")
+          .then((response) => {
+            if (response.data) {
+              setHistoricoList(Object.entries(response.data));
+              setHistorico(true);
+            }
+          })
+          .catch((err) => {
+            alert("Erro ao carregar o histórico, tente novamente!");
+          });
+      };
+    
 
     const Calcular = () =>{
-        const dados = { sexo, idade, altura, peso };
+        const dados = { sexo, idade, altura, peso, resultado };
 
         api
-            .post("", dados)
+            .post("/lista.json", dados)
             .then( (response) => {
-                alert("Resultado: " + response);
-            })
-            .catch( (err) => {
                 if (altura && peso) {
                     const weight = parseFloat(peso);
                     const height = parseFloat(altura) / 100;
                     const imc = weight / (height * height);
                     setResultado(imc.toFixed(2));
                 }
-                alert("Erro ao calculaar, tente novamente!");
                 setvisivel(true);
+            })
+            .catch( (err) => {
+                alert("Erro ao calculaar, tente novamente!");
             })
     }
 
     const Deletar = (historicoId) => {
         api
-            .delete(`/${historicoId}`)
-            .then( (response) => {
-                alert("Deletado com sucesso!");
-            })
-            .catch( (err) => {
-                alert("Erro ao tentar deletar, tente novamente!");
-            })
-    }
+          .delete(`/lista/${historicoId}.json`)
+          .then((response) => {
+            alert("Deletado com sucesso!");
+            // Atualiza a lista de histórico após a remoção
+            setHistoricoList((prevList) =>
+              prevList.filter(([id, _]) => id !== historicoId)
+            );
+          })
+          .catch((err) => {
+            alert("Erro ao tentar deletar, tente novamente!");
+          });
+      };
 
     return(
         <ImageBackground source={backgroundImg} style={styles.background}>
@@ -124,32 +139,34 @@ export default function TelaCalculadora() {
                 </Modal>
 
                 <Modal
-                    animationType='slide'
+                    animationType="slide"
                     transparent={true}
                     visible={historico}
                     onRequestClose={() => {
                         setHistorico(!historico);
                     }}>
-                        <ScrollView style={styles.modalScroll}>
-                            <View style={styles.modalContainer}>
-                                <Text style={styles.modalTitle}>Histórico</Text>
+                    <ScrollView style={styles.modalScroll}>
+                        <View style={styles.modalContainer}>
+                        <Text style={styles.modalTitle}>Histórico</Text>
 
-                                <View style={styles.containerHistorico}>
-                                    <Text style={styles.imcTitle}>22.8{resultado}kg/m2</Text>
-                                    <Text style={styles.imcDados}>Idade: {idade}</Text>
-                                    <Text style={styles.imcDados}>Altura: {altura}</Text>
-                                    <Text style={styles.imcDados}>Peso: {peso}</Text>
+                        {historicoList.map(([historicoId, historicoData]) => (
+                            <View key={historicoId} style={styles.containerHistorico}>
+                            <Text style={styles.imcTitle}>{historicoData.resultado}kg/m2</Text>
+                            <Text style={styles.imcDados}>Idade: {historicoData.idade}</Text>
+                            <Text style={styles.imcDados}>Altura: {historicoData.altura}</Text>
+                            <Text style={styles.imcDados}>Peso: {historicoData.peso}</Text>
 
-                                    <TouchableOpacity onPress={Deletar}>
-                                        <FontAwesome5 name="trash" style={styles.lixo}/>
-                                    </TouchableOpacity>
-                                </View>
-
-                                <TouchableOpacity onPress={() => setHistorico(!historico)}>
-                                    <Text style={styles.btnVoltar}>voltar</Text>
-                                </TouchableOpacity>
+                            <TouchableOpacity onPress={() => Deletar(historicoId)}>
+                                <FontAwesome5 name="trash" style={styles.lixo} />
+                            </TouchableOpacity>
                             </View>
-                        </ScrollView>
+                        ))}
+
+                        <TouchableOpacity onPress={() => setHistorico(!historico)}>
+                            <Text style={styles.btnVoltar}>voltar</Text>
+                        </TouchableOpacity>
+                        </View>
+                    </ScrollView>
                 </Modal>
             </ScrollView>
         </ImageBackground>
