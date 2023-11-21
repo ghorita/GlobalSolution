@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
 
     input: {
         borderRadius: 6,
-        borderColor: "black",
+        borderColor: "2E3A69",
         borderWidth: 3,
         padding: 15,
         marginHorizontal: 20,
