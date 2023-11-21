@@ -16,7 +16,7 @@ export default function TelaCalculadora({ navigation }) {
     const[visivel, setvisivel] = useState(false);
     const[historico, setHistorico] = useState(false);
     const [historicoList, setHistoricoList] = useState([]);
-    const[sexo, setSexo] = useState("feminino");
+    const[sexo, setSexo] = useState("");
     const[idade, setIdade] = useState("");
     const[altura, setAltura] = useState("");
     const[peso, setPeso] = useState("");

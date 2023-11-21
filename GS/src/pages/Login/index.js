@@ -13,8 +13,8 @@ const apiLogin = axios.create({
 
 export default function TelaLogin({ navigation}) {
 
-    const[email, setEmail] = useState("teste@teste.com");
-    const[password, setPassword] = useState("12345678");
+    const[email, setEmail] = useState("");
+    const[password, setPassword] = useState("");
     const[token, setToken] = useState(null);
 
     const Logar = ()=>{
