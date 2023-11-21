@@ -21,7 +21,7 @@ export default function App() {
 }
 
 //RM94860 - Gustavo Bacelar Horita
-//RM93611 - Pedro Faira Chagas Terra
+//RM93611 - Pedro Faria Chagas Terra
 
 
 
